@@ -58,16 +58,22 @@ public class World {
         return height;
     }
 
+    public int getWidth() { return width; }
+
+    public Structure getStructures(int x, int y) {
+        return structures[x][y];
+    }
+
     public Structure[][] getStructures() {
         return structures;
     }
 
-    public Unit[][] getUnits() {
-        return units;
+    public void addStructure(Structure structure, int x, int y) {
+        structures[x][y] = structure;
     }
 
-    public Structure getStructures(int x, int y) {
-        return structures[x][y];
+    public Unit[][] getUnits() {
+        return units;
     }
 
     public Unit getUnit(int x, int y) {
