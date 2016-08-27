@@ -4,17 +4,20 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.*;
+import com.massivedisaster.tdengine.com.massivedisaster.tdengine.domain.World;
 
 
 public class TDEngine extends ApplicationAdapter {
 
 	private Texture backgroundTexture;
 	private SpriteBatch spriteBatch;
+	private World world;
 
 	@Override
 	public void create() {
 		spriteBatch = new SpriteBatch();
-		backgroundTexture = new Texture(Gdx.files.internal("assets/background.jpg"));
+		world = new World(500, 500);
+		world.create();
 	}
 
 	@Override
@@ -23,9 +26,11 @@ public class TDEngine extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		world.update();
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		spriteBatch.begin();
-		spriteBatch.draw(backgroundTexture, 0, 0);
+		world.render(spriteBatch);
 		spriteBatch.end();
 	}
 
