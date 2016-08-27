@@ -2,34 +2,26 @@ package com.massivedisaster.tdengine;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+
+import java.io.File;
 
 public class TDEngine extends ApplicationAdapter {
 
-	public static final String VERT_SHADER =
-			"attribute vec2 a_position;\n" +
-					"attribute vec4 a_color;\n" +
-					"uniform mat4 u_projTrans;\n" +
-					"varying vec4 vColor;\n" +
-					"void main() {\n" +
-					"	vColor = a_color;\n" +
-					"	gl_Position =  u_projTrans * vec4(a_position.xy, 0.0, 1.0);\n" +
-					"}";
+	private final FileHandle vertShader;
+	private final FileHandle fragShader;
 
-	public static final String FRAG_SHADER =
-			"#ifdef GL_ES\n" +
-					"precision mediump float;\n" +
-					"#endif\n" +
-					"varying vec4 vColor;\n" +
-					"void main() {\n" +
-					"	gl_FragColor = vColor;\n" +
-					"}";
+	public TDEngine() {
+		final ClassLoader classLoader = TDEngine.class.getClassLoader();
+		vertShader = new FileHandle(new File(classLoader.getResource("shaders/VertexShader.glsl").getFile()));
+		fragShader = new FileHandle(new File(classLoader.getResource("shaders/FragmentShader.glsl").getFile()));
+	}
 
-	protected static ShaderProgram createMeshShader() {
+	protected static ShaderProgram createMeshShader(FileHandle vertShader, FileHandle fragShader) {
 		ShaderProgram.pedantic = false;
-		ShaderProgram shader = new ShaderProgram(VERT_SHADER, FRAG_SHADER);
+		ShaderProgram shader = new ShaderProgram(vertShader, fragShader);
 		String log = shader.getLog();
 		if (!shader.isCompiled())
 			throw new RuntimeException(log);
@@ -73,7 +65,7 @@ public class TDEngine extends ApplicationAdapter {
 				new VertexAttribute(1, POSITION_COMPONENTS, "a_position"),
 				new VertexAttribute(2, COLOR_COMPONENTS, "a_color"));
 
-		shader = createMeshShader();
+		shader = createMeshShader(vertShader, fragShader);
 		cam = new OrthographicCamera();
 	}
 
