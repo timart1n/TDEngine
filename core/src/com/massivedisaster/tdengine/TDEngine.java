@@ -10,16 +10,13 @@ import java.io.File;
 
 public class TDEngine extends ApplicationAdapter {
 
-	private final FileHandle vertShader;
-	private final FileHandle fragShader;
+	private String vertShader;
+	private String fragShader;
 
 	public TDEngine() {
-		final ClassLoader classLoader = TDEngine.class.getClassLoader();
-		vertShader = new FileHandle(new File(classLoader.getResource("shaders/VertexShader.glsl").getFile()));
-		fragShader = new FileHandle(new File(classLoader.getResource("shaders/FragmentShader.glsl").getFile()));
 	}
 
-	protected static ShaderProgram createMeshShader(FileHandle vertShader, FileHandle fragShader) {
+	protected static ShaderProgram createMeshShader(String vertShader, String fragShader) {
 		ShaderProgram.pedantic = false;
 		ShaderProgram shader = new ShaderProgram(vertShader, fragShader);
 		String log = shader.getLog();
@@ -61,6 +58,14 @@ public class TDEngine extends ApplicationAdapter {
 
 	@Override
 	public void create() {
+
+		final ClassLoader classLoader = TDEngine.class.getClassLoader();
+
+		System.out.println(Gdx.files);
+		vertShader = Gdx.files.internal("shaders/VertexShader.glsl").readString(); //new FileHandle(new File(classLoader.getResource("shaders/VertexShader.glsl").getFile()));
+		fragShader = Gdx.files.internal("shaders/FragmentShader.glsl").readString(); //new FileHandle(new File(classLoader.getResource("shaders/FragmentShader.glsl").getFile()));
+
+
 		mesh = new Mesh(true, MAX_VERTS, 0,
 				new VertexAttribute(1, POSITION_COMPONENTS, "a_position"),
 				new VertexAttribute(2, COLOR_COMPONENTS, "a_color"));
