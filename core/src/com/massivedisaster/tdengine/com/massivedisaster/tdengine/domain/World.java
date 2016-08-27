@@ -9,7 +9,7 @@ public class World {
     private final int height;
 
     private Structure [][] structures;
-    private int [][] units;
+    private Unit [][] units;
     private boolean [][] isBuildingAllowed;
 
     public World(int width, int height) {
@@ -17,7 +17,7 @@ public class World {
         this.height = height;
 
         structures = new Structure[width][height];
-        units = new int[width][height];
+        units = new Unit[width][height];
         isBuildingAllowed = new boolean[width][height];
     }
 
@@ -33,7 +33,7 @@ public class World {
         return structures;
     }
 
-    public int[][] getUnits() {
+    public Unit[][] getUnits() {
         return units;
     }
 
@@ -41,7 +41,7 @@ public class World {
         return structures[x][y];
     }
 
-    public int getUnit(int x, int y) {
+    public Unit getUnit(int x, int y) {
         return units[x][y];
     }
 
