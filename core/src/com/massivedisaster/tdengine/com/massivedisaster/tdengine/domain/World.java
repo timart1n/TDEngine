@@ -10,6 +10,7 @@ public class World {
 
     private Structure [][] structures;
     private int [][] units;
+    private boolean [][] isBuildingAllowed;
 
     public World(int width, int height) {
         this.width = width;
@@ -17,6 +18,7 @@ public class World {
 
         structures = new Structure[width][height];
         units = new int[width][height];
+        isBuildingAllowed = new boolean[width][height];
     }
 
     public int getWidth() {

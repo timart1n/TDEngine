@@ -3,10 +3,9 @@ package com.massivedisaster.tdengine.com.massivedisaster.tdengine.domain;
 /**
  * Created by sboychen on 27/08/2016.
  */
-public abstract class Structure {
+public abstract class Unit {
     private int id;
     private String name;
-    private float buildProgress;
     private float range;
     private float power;
     private float level;
@@ -27,14 +26,6 @@ public abstract class Structure {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public float getBuildProgress() {
-        return buildProgress;
-    }
-
-    public void setBuildProgress(float buildProgress) {
-        this.buildProgress = buildProgress;
     }
 
     public float getRange() {
@@ -61,14 +52,6 @@ public abstract class Structure {
         this.level = level;
     }
 
-    public boolean isAlly() {
-        return isAlly;
-    }
-
-    public void setAlly(boolean ally) {
-        isAlly = ally;
-    }
-
     public float getLife() {
         return life;
     }
@@ -77,5 +60,11 @@ public abstract class Structure {
         this.life = life;
     }
 
-    public abstract boolean updateLevel();
+    public boolean isAlly() {
+        return isAlly;
+    }
+
+    public void setAlly(boolean ally) {
+        isAlly = ally;
+    }
 }
